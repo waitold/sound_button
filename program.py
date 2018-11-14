@@ -69,15 +69,13 @@ class ButtonProces(tk.Button):
         
     def play(self,event):#サウンドの再生
         filepath = app.file_path[event.widget.row][event.widget.column]
-        filepath.strip()
         pygame.mixer.init()
-        pygame.mixer.music.load(filepath)
-        pygame.mixer.music.play(1)
-        time.sleep(0.05)
-        pygame.mixer.music.stop()
+        play_sound = pygame.mixer.Sound(filepath)
+        play_sound.set_volume(0.3)
+        play_sound.play()
 
     def set_sound(self,event):#サウンドのファイルパス取得
-        fTyp = [("","*.mp3")]
+        fTyp = [("","*.wav")]
         iDir = os.path.abspath(os.path.dirname(__file__))
         tk.messagebox.showinfo('sound button','処理ファイルを選択してください！')
         file = tk.filedialog.askopenfilename(filetypes = fTyp,initialdir = iDir)
@@ -107,6 +105,7 @@ class ButtonProces(tk.Button):
 
 
 root = tk.Tk()
+root.title("sound button")
 app = Application(master = root)
 app.mainloop()
 root.mainloop()
